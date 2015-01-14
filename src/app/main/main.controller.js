@@ -1,4 +1,3 @@
-'use strict';
 
 angular.module('kodeBin')
   .controller('MainCtrl', function ($scope) {
