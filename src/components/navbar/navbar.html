@@ -11,10 +11,20 @@
 	<md-button href="#" ng-click="login('google')">Login</md-button>
 </div>
 <div ng-show="currentUser">
-	<md-button href="#" ng-click="logout()">Logout</md-button>
+  <md-list>
+            <md-item-content>
+          <div class="md-tile-left">
+              <img ng-src="{{currentUser.picture}}" class="face" alt="">
+          </div>
+          <div class="md-tile-content">
+            <h3>{{currentUser.email}}</h3>
+            <h4>{{currentUser.name}}</h4>
+          </div>
+          <md-button href="#" ng-click="logout()">Logout</md-button>
+        </md-item-content>
+  </md-list>
+
+	
 </div>
 
   
-
-
-</md-toolbar>

@@ -1,0 +1,11 @@
+div(layout="vertical" layout-fill ng-init="getExpertise()")
+	header(ng-include="'components/navbar/navbar.html'")
+
+	label(ng-repeat="expert in alldetails") {{ expert }}
+		input(type='checkbox' checklist-value='expert' checklist-model='user.alldetails') 
+
+	button(ng-click="checkAll()") Check All
+	button(ng-click="checkAll()") Check All
+
+	//- div(ng-init="getExpertiseAreas()")
+	

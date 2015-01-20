@@ -2,8 +2,8 @@ angular.module('kodeBin')
   .directive('header', function() {
     return {
       restrict: 'E',
-      controller: ['$rootScope', '$scope', '$firebase', '$cookies',
-       function($rootScope, $scope, $firebase, $cookies) {
+      controller: ['$rootScope', '$scope', '$firebase', '$cookies', '$timeout', '$location',
+       function($rootScope, $scope, $firebase, $cookies, $timeout, $location) {
         var rootRef = new Firebase('https://codebin.firebaseio.com/');
         var usersRef = rootRef.child('users');
         var welcomeRef = rootRef.child('welcome');
@@ -15,12 +15,6 @@ angular.module('kodeBin')
         // happens automatically when rememberMe is enabled
         rootRef.onAuth(function(authData) {
           if(authData) {
-
-            // todo: this is a brute force redirect after login
-            //       How can we do it within routing framework?
-            // if(window.location.pathname === "/") {
-            //   window.location.pathname = "/journal";
-            // }
 
             console.log("auth: user is logged in");
             var user = buildAhhLifeUserObjectFromGoogle(authData);
@@ -38,13 +32,19 @@ angular.module('kodeBin')
                 user.created = Firebase.ServerValue.TIMESTAMP;
                 userRef.set(user);
                 welcomeRef.child(user.uid).set(user);
+                $timeout(function() {
+                  $location.path('/setting');
+                }, 500);
+
               }
               // set user to inactive on disconnect
               userRef.child('active').onDisconnect().set(false);
             });
-
-            $rootScope.currentUser = user;
-            console.log($rootScope.currentUser);
+            $timeout(function() {
+              $rootScope.currentUser = user;
+              console.log($rootScope.currentUser);
+            }, 500);
+           
           }
           else {
             // user is logged out
